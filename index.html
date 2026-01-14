@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section class="crypto-dashboard" aria-labelledby="dashboard-title">
+      <header class="dashboard-header">
+        <h2 id="dashboard-title">Marché en Temps Réel</h2>
+
+        <p class="update-info">
+          Mise à jour : <time id="last-update-time" datetime="">--:--:--</time>
+        </p>
+      </header>
+
+      <figure class="table-wrapper">
+        <table class="crypto-table">
+          <caption class="sr-only">
+            Liste des 10 principales crypto-monnaies
+          </caption>
+
+          <thead>
+            <tr>
+              <th scope="col" class="text-left">Actif</th>
+              <th scope="col" class="text-right">Prix</th>
+              <th scope="col" class="text-right">Var. 7j</th>
+              <th scope="col" class="text-right">24h High/Low</th>
+              <th scope="col" class="text-right">ATH %</th>
+              <th scope="col" class="text-right">Mkt Cap</th>
+            </tr>
+          </thead>
+
+          <tbody id="crypto-table-body"></tbody>
+        </table>
+      </figure>
+    </section>
+    <script type="module" src="./src/render.js"></script>
+  </body>
+</html>
