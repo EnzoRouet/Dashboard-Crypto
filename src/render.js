@@ -1,5 +1,3 @@
-import { getCoins } from "./API.js";
-
 // On commence par faire un tool de formattage de prix
 export function formatPrice(number) {
   if (number > 1000000) {
@@ -45,7 +43,7 @@ export function render(datas) {
         : `<i class="fa-solid fa-arrow-trend-down"></i>`;
 
     return `
-      <tr>
+      <tr class="crypto" data-id="${crypto.id}">
             <th scope="row"> <img src="${
               crypto.image
             }"/> <span class="crypto-name">${crypto.name}</span></th>

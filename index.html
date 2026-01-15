@@ -26,7 +26,7 @@
             <tr>
               <th scope="col" class="text-left">Actif</th>
               <th scope="col" class="text-right">Prix</th>
-              <th scope="col" class="text-right">Var. 7j</th>
+              <th scope="col" class="text-right">Var° 7j</th>
               <th scope="col" class="text-right">24h High/Low</th>
               <th scope="col" class="text-right">ATH %</th>
               <th scope="col" class="text-right">Mkt Cap</th>
@@ -36,6 +36,19 @@
           <tbody id="crypto-table-body"></tbody>
         </table>
       </figure>
+    </section>
+    <section class="crypto-details disabled">
+      <ul class="tools">
+        <li class="tool"></li>
+        <li class="tool"></li>
+        <li class="tool"></li>
+        <button>Exit</button>
+      </ul>
+      <div class="canvas-container">
+        <canvas id="chart-grid"></canvas>
+        <canvas id="chart-data"></canvas>
+        <canvas id="chart-draw" class="disabled"></canvas>
+      </div>
     </section>
     <script type="module" src="./index.js"></script>
   </body>

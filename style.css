@@ -1,0 +1,32 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.crypto-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.tools {
+  display: flex;
+}
+
+.canvas-container {
+  position: relative;
+}
+
+.disabled {
+  display: none;
+}
+
+#chart-data,
+#chart-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#chart-draw {
+  z-index: 9999;
+}
