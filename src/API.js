@@ -21,3 +21,23 @@ export async function getCoins() {
     return [];
   }
 }
+
+export async function getMarketChart(id, days) {
+  try {
+    const EndPoint = `${BASE_URL}/coins/${id}/market_chart?vs_currency=usd&days=${days}`;
+
+    console.log("Appel API vers :", EndPoint);
+    const response = await fetch(EndPoint);
+
+    const data = await response.json();
+    const prices = data.prices;
+
+    return prices;
+  } catch (err) {
+    console.error(
+      "Impossible de récupérer l'historique de cette crypto :",
+      err,
+    );
+    return [];
+  }
+}

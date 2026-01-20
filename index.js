@@ -1,5 +1,7 @@
 import { getCoins } from "./src/API.js";
+import { getMarketChart } from "./src/API.js";
 import { render } from "./src/render.js";
+import { loadDetails } from "./src/details.js";
 const firstBloc = document.querySelector(".crypto-dashboard");
 const secondBloc = document.querySelector(".crypto-details");
 
@@ -12,11 +14,13 @@ async function init() {
 
     lignes.forEach((ligne) => {
       ligne.addEventListener("click", () => {
-        id = ligne.dataset.id;
-        console.log(id);
-
+        // À garder impérativement dans cet ordre
         firstBloc.classList.add("disabled");
         secondBloc.classList.remove("disabled");
+
+        id = ligne.dataset.id;
+        loadDetails(id);
+        getMarketChart(id, 1);
       });
     });
   } catch (err) {
