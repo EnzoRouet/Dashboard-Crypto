@@ -1,4 +1,5 @@
 import { getMarketChart } from "./API.js";
+import { drawChart } from "./draw.js";
 let currentCryptoId;
 
 export async function loadDetails(id) {
@@ -38,5 +39,5 @@ export async function updateGraph(days) {
   const dataCanvas = document.getElementById("chart-data");
   const ctx = dataCanvas.getContext("2d");
 
-  // drawChart(ctx, prices, dataCanvas.width, dataCanvas.height);
+  drawChart(ctx, prices, dataCanvas.width, dataCanvas.height);
 }
