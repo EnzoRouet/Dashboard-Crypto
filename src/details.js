@@ -1,5 +1,5 @@
 import { getMarketChart } from "./API.js";
-import { drawChart } from "./draw.js";
+import { drawChart, drawGrid } from "./draw.js";
 let currentCryptoId;
 
 export async function loadDetails(id) {
@@ -7,19 +7,16 @@ export async function loadDetails(id) {
   const data = document.getElementById("chart-data");
   const draw = document.getElementById("chart-draw");
 
-  const wCanvas = grid.clientWidth;
-  const hCanvas = grid.clientHeight;
-
   currentCryptoId = id;
 
-  grid.width = wCanvas;
-  grid.height = hCanvas;
+  grid.width = grid.clientWidth;
+  grid.height = grid.clientHeight;
 
-  data.width = wCanvas;
-  data.height = hCanvas;
+  data.width = data.clientWidth;
+  data.height = data.clientHeight;
 
-  draw.width = wCanvas;
-  draw.height = hCanvas;
+  draw.width = draw.clientWidth;
+  draw.height = draw.clientHeight;
 
   const ctxGrid = grid.getContext("2d");
   const ctxData = data.getContext("2d");
@@ -37,7 +34,10 @@ export async function updateGraph(days) {
   const prices = await getMarketChart(currentCryptoId, days);
 
   const dataCanvas = document.getElementById("chart-data");
-  const ctx = dataCanvas.getContext("2d");
+  const gridCanvas = document.getElementById("chart-grid");
+  const ctxData = dataCanvas.getContext("2d");
+  const ctxGrid = gridCanvas.getContext("2d");
 
-  drawChart(ctx, prices, dataCanvas.width, dataCanvas.height);
+  drawChart(ctxData, prices, dataCanvas.width, dataCanvas.height);
+  drawGrid(ctxGrid, prices, gridCanvas.height);
 }

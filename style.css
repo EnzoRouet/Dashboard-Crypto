@@ -1,11 +1,14 @@
 * {
   margin: 0;
   padding: 0;
+  list-style-type: none;
 }
 
 .crypto-details {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .tools {
@@ -14,20 +17,27 @@
 
 .canvas-container {
   position: relative;
-  width: 80%;
-  height: 70vh;
+  width: 90%;
+  height: 90vh;
 }
 
 .disabled {
   display: none;
 }
 
-#chart-data,
 #chart-grid {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
+  height: 100%;
+}
+
+#chart-data {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 95%;
   height: 100%;
 }
 

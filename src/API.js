@@ -24,7 +24,7 @@ export async function getCoins() {
 
 export async function getMarketChart(id, days) {
   try {
-    const EndPoint = `${BASE_URL}/coins/${id}/market_chart?vs_currency=usd&days=${days}`;
+    const EndPoint = `${BASE_URL}/coins/${id}/market_chart?vs_currency=usd&days=${days}&x_cg_demo_api_key=${API_KEY}`;
 
     console.log("Appel API vers :", EndPoint);
     const response = await fetch(EndPoint);

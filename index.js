@@ -4,6 +4,7 @@ import { render } from "./src/render.js";
 import { loadDetails } from "./src/details.js";
 const firstBloc = document.querySelector(".crypto-dashboard");
 const secondBloc = document.querySelector(".crypto-details");
+const btn_exit = document.getElementById("exit");
 
 async function init() {
   try {
@@ -40,4 +41,10 @@ document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") {
     init();
   }
+});
+
+btn_exit.addEventListener("click", (e) => {
+  e.preventDefault();
+  firstBloc.classList.remove("disabled");
+  secondBloc.classList.add("disabled");
 });
