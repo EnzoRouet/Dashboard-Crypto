@@ -42,7 +42,7 @@ export function drawChart(ctx, prices, width, height) {
   ctx.stroke();
 }
 
-export function drawGrid(ctx, prices, height) {
+export function drawYGrid(ctx, prices, height) {
   if (!prices || prices.length === 0) {
     return;
   }
@@ -80,5 +80,54 @@ export function drawGrid(ctx, prices, height) {
       ctx.textBaseline = "middle"; // Les autres sont centrés
     }
     ctx.fillText(formatPrice(price), 5, y);
+  }
+}
+
+export function drawXGrid(ctx, prices, width, height, days) {
+  if (!prices || prices.length === 0) return;
+
+  ctx.textAlign = "center";
+  ctx.textBaseline = "top";
+  ctx.fillStyle = "#111827";
+  ctx.font = "10px sans-serif";
+
+  const y = height - 10;
+
+  if (days === 1) {
+    let lastDrawnHour = -1;
+
+    for (let i = 0; i < prices.length; i++) {
+      const timestamp = prices[i][0];
+      const date = new Date(timestamp);
+      const hour = date.getHours();
+
+      if (hour % 2 === 0 && hour !== lastDrawnHour) {
+        const x = (i / (prices.length - 1)) * width;
+        if (x > 50 && x < width - 20) {
+          ctx.fillText(`${hour}:00`, x, y);
+          lastDrawnHour = hour;
+        }
+      }
+    }
+  } else {
+    const numLabels = 6;
+    for (let j = 0; j < numLabels; j++) {
+      const index = Math.floor((j * (prices.length - 1)) / (numLabels - 1));
+
+      const timestamp = prices[index][0];
+      const date = new Date(timestamp);
+      const dateString = date.toLocaleDateString(undefined, {
+        day: "numeric",
+        month: "numeric",
+      });
+      const x = (index / (prices.length - 1)) * width;
+
+      if (j === 0) ctx.textAlign = "left";
+      else if (j === numLabels - 1) ctx.textAlign = "right";
+      else ctx.textAlign = "center";
+
+      ctx.fillText(dateString, x, y);
+    }
+    console.log("Terminé !");
   }
 }

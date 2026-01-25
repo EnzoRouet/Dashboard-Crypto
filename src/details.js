@@ -1,5 +1,5 @@
 import { getMarketChart } from "./API.js";
-import { drawChart, drawGrid } from "./draw.js";
+import { drawChart, drawYGrid, drawXGrid } from "./draw.js";
 let currentCryptoId;
 
 export async function loadDetails(id) {
@@ -39,5 +39,6 @@ export async function updateGraph(days) {
   const ctxGrid = gridCanvas.getContext("2d");
 
   drawChart(ctxData, prices, dataCanvas.width, dataCanvas.height);
-  drawGrid(ctxGrid, prices, gridCanvas.height);
+  drawYGrid(ctxGrid, prices, gridCanvas.height);
+  drawXGrid(ctxGrid, prices, gridCanvas.width, gridCanvas.height, days);
 }
