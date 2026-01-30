@@ -1,12 +1,13 @@
 import { formatPrice } from "./render.js";
 
+let color;
+
 export function drawChart(ctx, prices, width, height) {
   if (!prices || prices.length === 0) {
     return;
   }
 
-  const color =
-    prices[0][1] <= prices[prices.length - 1][1] ? "#1FBF28" : "#C71616";
+  color = prices[0][1] <= prices[prices.length - 1][1] ? "#1FBF28" : "#C71616";
 
   let minPrice = prices[0][1];
   let maxPrice = prices[0][1];
@@ -130,4 +131,49 @@ export function drawXGrid(ctx, prices, width, height, days) {
     }
     console.log("Terminé !");
   }
+}
+
+export function drawCursor(ctx, x, y, width, height, price, dateStr) {
+  ctx.save();
+
+  ctx.beginPath();
+  ctx.setLineDash([5, 5]);
+
+  ctx.moveTo(x, 0);
+  ctx.lineTo(x, height);
+
+  ctx.moveTo(0, y);
+  ctx.lineTo(width, y);
+  ctx.stroke();
+
+  ctx.restore();
+
+  ctx.beginPath();
+  ctx.moveTo(x, y);
+  ctx.arc(x, y, 5, 0, 2 * Math.PI);
+  ctx.fillStyle = "rgb(255,255,255)";
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.beginPath();
+  let xBox;
+  let xText;
+
+  if (x < width - 120) {
+    xBox = x + 15;
+    xText = x + 65;
+  } else {
+    xBox = x - 115;
+    xText = x - 65;
+  }
+
+  let y_depart = y - 40 / 2;
+  ctx.fillStyle = "rgb(54, 54, 54)";
+  ctx.fillRect(xBox, y_depart, 100, 40);
+  ctx.fillStyle = "rgb(255,255,255)";
+  ctx.textBaseline = "middle";
+  ctx.textAlign = "center";
+  ctx.fillText(`${price}`, xText, y - 10);
+  ctx.fillStyle = "rgb(140, 140, 140)";
+  ctx.fillText(`${dateStr}`, xText, y + 10);
 }
