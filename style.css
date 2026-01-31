@@ -42,7 +42,11 @@
 }
 
 #chart-draw {
+  position: absolute;
+  top: 0;
+  right: 0;
   z-index: 9999;
-  width: 100%;
+  width: 95%;
   height: 100%;
+  pointer-events: auto;
 }
