@@ -1,28 +1,221 @@
+/* =========================================
+   1. VARIABLES & RESET
+   ========================================= */
+:root {
+  --bg-app: #131722; /* Noir profond (TradingView) */
+  --bg-card: #1e222d; /* Gris anthracite pour les blocs */
+  --bg-hover: #2a2e39; /* Gris plus clair au survol */
+  --text-main: #d1d4dc; /* Blanc cassé (plus doux pour les yeux) */
+  --text-muted: #787b86; /* Gris pour les labels */
+  --border: #2a2e39; /* Bordures subtiles */
+
+  --green: #26a69a; /* Vert trading */
+  --red: #ef5350; /* Rouge trading */
+  --accent: #2962ff; /* Bleu bouton */
+}
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+    Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   list-style-type: none;
 }
 
-.crypto-details {
+body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  height: 100vh;
+  overflow: hidden; /* Pour éviter les doubles barres de scroll */
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.tools {
-  display: flex;
+/* Scrollbar moderne sombre */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-app);
+}
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
 }
 
+/* =========================================
+   2. DASHBOARD (TABLEAU)
+   ========================================= */
+.crypto-dashboard {
+  width: 90%;
+  max-width: 1200px;
+  height: 90vh;
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+/* En-tête du Dashboard */
+.dashboard-header {
+  padding: 20px 30px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-header h2 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.update-info {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tableau */
+.table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.crypto-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* En-tête collant (Sticky) */
+.crypto-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  padding: 15px 20px;
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+/* Lignes du tableau */
+.crypto-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid var(--border);
+}
+
+.crypto-table tbody tr:hover {
+  background-color: var(--bg-hover);
+}
+
+.crypto-table td,
+.crypto-table th {
+  padding: 15px 20px;
+}
+
+/* Alignements spécifiques */
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+/* Cellule Nom + Image */
+.crypto th[scope="row"] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+  color: var(--text-main);
+}
+
+.crypto th img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+/* Couleurs dynamiques (pour tes classes JS) */
+.green {
+  color: var(--green) !important;
+}
+.red {
+  color: var(--red) !important;
+}
+
+/* Petit texte secondaire (ex: Low 24h) */
+.low {
+  font-size: 0.8em;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* =========================================
+   3. DETAILS VIEW (GRAPHIQUE)
+   ========================================= */
+.crypto-details {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bg-app);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 20px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Barre d'outils / Header Graphique */
+.tools {
+  width: 90%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+/* Bouton Exit stylisé */
+#exit {
+  background-color: transparent;
+  border: 1px solid var(--text-muted);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+#exit:hover {
+  border-color: var(--text-main);
+  color: var(--text-main);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================
+   4. CRITICAL CANVAS LAYOUT (NE PAS TOUCHER)
+   ========================================= */
 .canvas-container {
   position: relative;
-  width: 90%;
-  height: 90vh;
-}
-
-.disabled {
-  display: none;
+  width: 95%; /* Un peu plus large pour l'immersion */
+  height: 85vh; /* Hauteur confortable */
+  margin: 0 auto;
+  background: radial-gradient(
+    circle at center,
+    #181c25 0%,
+    #131722 100%
+  ); /* Fond subtil */
+  border: 1px solid var(--border);
+  border-radius: 8px;
 }
 
 #chart-grid {
@@ -45,8 +238,86 @@
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 9999;
   width: 95%;
   height: 100%;
+  z-index: 9999;
   pointer-events: auto;
+  cursor: crosshair; /* Curseur en croix pour la précision */
+}
+
+/* =========================================
+   5. UTILITAIRES
+   ========================================= */
+.disabled {
+  display: none !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Accessibilité (Screen Readers) */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* =========================================
+   6. FIX ALIGNEMENT TABLEAU
+   ========================================= */
+
+/* On force des largeurs spécifiques pour chaque colonne */
+/* Colonne 1 : Actif (Nom + Image) - On lui donne de la place */
+.crypto-table th:nth-child(1),
+.crypto-table td:nth-child(1) {
+  width: 25%;
+  text-align: left;
+}
+
+/* Colonne 2 : Prix */
+.crypto-table th:nth-child(2),
+.crypto-table td:nth-child(2) {
+  width: 15%;
+  text-align: right;
+}
+
+/* Colonne 3 : Variation 7j */
+.crypto-table th:nth-child(3),
+.crypto-table td:nth-child(3) {
+  width: 10%;
+  text-align: right;
+}
+
+/* Colonne 4 : 24h High/Low */
+.crypto-table th:nth-child(4),
+.crypto-table td:nth-child(4) {
+  width: 20%;
+  text-align: right;
+}
+
+/* Colonne 5 : ATH % */
+.crypto-table th:nth-child(5),
+.crypto-table td:nth-child(5) {
+  width: 15%;
+  text-align: right;
+}
+
+/* Colonne 6 : Market Cap */
+.crypto-table th:nth-child(6),
+.crypto-table td:nth-child(6) {
+  width: 15%;
+  text-align: right;
 }

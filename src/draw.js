@@ -66,21 +66,25 @@ export function drawYGrid(ctx, prices, height) {
 
   ctx.textAlign = "left";
   ctx.textBaseline = "middle";
-  ctx.fillStyle = "#111827";
+  ctx.fillStyle = "#9ca3af";
   ctx.font = "bold 14px sans-serif";
 
   for (let j = 0; j < 6; j++) {
     const price = minPrice + j * ((maxPrice - minPrice) / 5);
     const y = height - ((price - minPrice) / (maxPrice - minPrice)) * height;
 
+    let textY = y;
+
     if (j === 0) {
-      ctx.textBaseline = "bottom"; // Le prix du bas se pose SUR la ligne du bas
+      ctx.textBaseline = "bottom";
+      textY = y - 10;
     } else if (j === 5) {
-      ctx.textBaseline = "top"; // Le prix du haut pend SOUS la ligne du haut
+      ctx.textBaseline = "top";
+      textY = y + 10;
     } else {
-      ctx.textBaseline = "middle"; // Les autres sont centrés
+      ctx.textBaseline = "middle";
     }
-    ctx.fillText(formatPrice(price), 5, y);
+    ctx.fillText(formatPrice(price), 5, textY);
   }
 }
 
@@ -89,7 +93,7 @@ export function drawXGrid(ctx, prices, width, height, days) {
 
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  ctx.fillStyle = "#111827";
+  ctx.fillStyle = "#9ca3af";
   ctx.font = "10px sans-serif";
 
   const y = height - 10;
@@ -104,7 +108,7 @@ export function drawXGrid(ctx, prices, width, height, days) {
 
       if (hour % 2 === 0 && hour !== lastDrawnHour) {
         const x = (i / (prices.length - 1)) * width;
-        if (x > 50 && x < width - 20) {
+        if (x > 100 && x < width - 20) {
           ctx.fillText(`${hour}:00`, x, y);
           lastDrawnHour = hour;
         }
@@ -122,6 +126,10 @@ export function drawXGrid(ctx, prices, width, height, days) {
         month: "numeric",
       });
       const x = (index / (prices.length - 1)) * width;
+
+      // if (j === 0 && x < 50) {
+      //   continue;
+      // }
 
       if (j === 0) ctx.textAlign = "left";
       else if (j === numLabels - 1) ctx.textAlign = "right";
