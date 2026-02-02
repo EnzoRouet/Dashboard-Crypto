@@ -38,18 +38,79 @@
       </figure>
     </section>
     <section class="crypto-details disabled">
-      <ul class="tools">
-        <li class="tool"></li>
-        <li class="tool"></li>
-        <li class="tool"></li>
-        <button id="exit">Exit</button>
-      </ul>
+      <header class="details-header">
+        <div class="crypto-identity">
+          <img id="detail-logo" src="" alt="" class="detail-logo" />
+          <h2 id="detail-name">Crypto</h2>
+        </div>
+
+        <div class="tools-actions">
+          <input
+            type="radio"
+            id="tool-cursor"
+            name="tool"
+            value="cursor"
+            checked
+            hidden
+          />
+          <label for="tool-cursor" class="btn-tool" title="Curseur">➤</label>
+
+          <input type="radio" id="tool-box" name="tool" value="box" hidden />
+          <label for="tool-box" class="btn-tool" title="Zone de Focus"
+            >⬜</label
+          >
+
+          <div class="divider-vertical"></div>
+
+          <button
+            type="button"
+            id="tool-eraser"
+            class="btn-tool"
+            title="Tout effacer"
+          >
+            🗑️
+          </button>
+        </div>
+
+        <button type="button" id="exit" class="btn-exit" aria-label="Fermer">
+          Fermer ✕
+        </button>
+      </header>
+
       <div class="canvas-container">
-        <h2></h2>
         <canvas id="chart-grid"></canvas>
         <canvas id="chart-data"></canvas>
+        <canvas id="chart-user"></canvas>
         <canvas id="chart-draw"></canvas>
       </div>
+
+      <footer class="chart-controls-bottom">
+        <menu type="toolbar" class="time-filters" aria-label="Période">
+          <li>
+            <button type="button" class="time-btn active" data-days="1">
+              1 jour
+            </button>
+          </li>
+          <li>
+            <button type="button" class="time-btn" data-days="7">
+              7 jours
+            </button>
+          </li>
+          <li>
+            <button type="button" class="time-btn" data-days="30">
+              1 mois
+            </button>
+          </li>
+          <li>
+            <button type="button" class="time-btn" data-days="90">
+              3 mois
+            </button>
+          </li>
+          <li>
+            <button type="button" class="time-btn" data-days="365">1 an</button>
+          </li>
+        </menu>
+      </footer>
     </section>
     <script type="module" src="./index.js"></script>
   </body>

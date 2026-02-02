@@ -2,16 +2,16 @@
    1. VARIABLES & RESET
    ========================================= */
 :root {
-  --bg-app: #131722; /* Noir profond (TradingView) */
-  --bg-card: #1e222d; /* Gris anthracite pour les blocs */
-  --bg-hover: #2a2e39; /* Gris plus clair au survol */
-  --text-main: #d1d4dc; /* Blanc cassé (plus doux pour les yeux) */
-  --text-muted: #787b86; /* Gris pour les labels */
-  --border: #2a2e39; /* Bordures subtiles */
+  --bg-app: #131722;
+  --bg-card: #1e222d;
+  --bg-hover: #2a2e39;
+  --text-main: #d1d4dc;
+  --text-muted: #787b86;
+  --border: #2a2e39;
 
-  --green: #26a69a; /* Vert trading */
-  --red: #ef5350; /* Rouge trading */
-  --accent: #2962ff; /* Bleu bouton */
+  --green: #26a69a;
+  --red: #ef5350;
+  --accent: #2962ff;
 }
 
 * {
@@ -28,13 +28,13 @@ body {
   background-color: var(--bg-app);
   color: var(--text-main);
   height: 100vh;
-  overflow: hidden; /* Pour éviter les doubles barres de scroll */
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Scrollbar moderne sombre */
+/* Scrollbar moderne */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -62,7 +62,6 @@ body {
   overflow: hidden;
 }
 
-/* En-tête du Dashboard */
 .dashboard-header {
   padding: 20px 30px;
   border-bottom: 1px solid var(--border);
@@ -75,7 +74,6 @@ body {
   font-weight: 600;
   letter-spacing: 0.5px;
 }
-
 .update-info {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -88,13 +86,11 @@ body {
   overflow-y: auto;
   position: relative;
 }
-
 .crypto-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-/* En-tête collant (Sticky) */
 .crypto-table thead th {
   position: sticky;
   top: 0;
@@ -107,23 +103,19 @@ body {
   z-index: 10;
 }
 
-/* Lignes du tableau */
 .crypto-table tbody tr {
   cursor: pointer;
   transition: background-color 0.2s;
   border-bottom: 1px solid var(--border);
 }
-
 .crypto-table tbody tr:hover {
   background-color: var(--bg-hover);
 }
-
 .crypto-table td,
 .crypto-table th {
   padding: 15px 20px;
 }
 
-/* Alignements spécifiques */
 .text-left {
   text-align: left;
 }
@@ -131,7 +123,6 @@ body {
   text-align: right;
 }
 
-/* Cellule Nom + Image */
 .crypto th[scope="row"] {
   display: flex;
   align-items: center;
@@ -139,117 +130,264 @@ body {
   font-weight: 500;
   color: var(--text-main);
 }
-
 .crypto th img {
   width: 28px;
   height: 28px;
   border-radius: 50%;
 }
 
-/* Couleurs dynamiques (pour tes classes JS) */
 .green {
   color: var(--green) !important;
 }
 .red {
   color: var(--red) !important;
 }
-
-/* Petit texte secondaire (ex: Low 24h) */
 .low {
   font-size: 0.8em;
   color: var(--text-muted);
   margin-top: 4px;
 }
 
+/* Largeurs Colonnes Tableau */
+.crypto-table th:nth-child(1),
+.crypto-table td:nth-child(1) {
+  width: 25%;
+  text-align: left;
+}
+.crypto-table th:nth-child(2),
+.crypto-table td:nth-child(2) {
+  width: 15%;
+  text-align: right;
+}
+.crypto-table th:nth-child(3),
+.crypto-table td:nth-child(3) {
+  width: 10%;
+  text-align: right;
+}
+.crypto-table th:nth-child(4),
+.crypto-table td:nth-child(4) {
+  width: 20%;
+  text-align: right;
+}
+.crypto-table th:nth-child(5),
+.crypto-table td:nth-child(5) {
+  width: 15%;
+  text-align: right;
+}
+.crypto-table th:nth-child(6),
+.crypto-table td:nth-child(6) {
+  width: 15%;
+  text-align: right;
+}
+
 /* =========================================
-   3. DETAILS VIEW (GRAPHIQUE)
+   3. DETAILS VIEW (NOUVELLE STRUCTURE)
    ========================================= */
 .crypto-details {
   width: 100%;
   height: 100vh;
   background-color: var(--bg-app);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-top: 20px;
+  flex-direction: column; /* Haut - Milieu - Bas */
+  justify-content: space-between;
+  padding: 10px;
   animation: fadeIn 0.3s ease-in-out;
+  box-sizing: border-box;
 }
 
-/* Barre d'outils / Header Graphique */
-.tools {
-  width: 90%;
+/* --- ETAGE 1 : HEADER (Cockpit) --- */
+.details-header {
+  display: flex;
+  justify-content: space-between; /* Répartition : Gauche - Milieu - Droite */
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background-color: var(--bg-card);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  min-height: 60px;
+}
+
+/* Bloc Gauche : Identité */
+.crypto-identity {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  width: 250px; /* Largeur fixe pour stabiliser le header */
+}
+.detail-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+}
+#detail-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  margin: 0;
+}
+
+/* Bloc Milieu : Outils (Capsule) */
+.tools-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 6px 15px;
+  border-radius: 50px;
+  border: 1px solid var(--border);
+}
+
+.btn-tool {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  width: 36px;
+  height: 36px;
+}
+.btn-tool:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* État actif des outils */
+input[type="radio"]:checked + label {
+  color: #fff;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(41, 98, 255, 0.4);
+}
+
+.divider-vertical {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 5px;
+}
+
+/* Bloc Droite : Exit */
+.btn-exit {
+  width: 250px; /* Même largeur que gauche pour centrer le milieu */
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 10px;
-}
-
-/* Bouton Exit stylisé */
-#exit {
-  background-color: transparent;
-  border: 1px solid var(--text-muted);
+  background: transparent;
+  border: none;
   color: var(--text-muted);
-  padding: 8px 16px;
-  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.2s;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.btn-exit:hover {
+  color: var(--red);
 }
 
-#exit:hover {
-  border-color: var(--text-main);
-  color: var(--text-main);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* =========================================
-   4. CRITICAL CANVAS LAYOUT (NE PAS TOUCHER)
-   ========================================= */
+/* --- ETAGE 2 : GRAPHIQUE --- */
 .canvas-container {
   position: relative;
-  width: 95%; /* Un peu plus large pour l'immersion */
-  height: 85vh; /* Hauteur confortable */
-  margin: 0 auto;
-  background: radial-gradient(
-    circle at center,
-    #181c25 0%,
-    #131722 100%
-  ); /* Fond subtil */
+  flex: 1; /* Prend toute la place restante */
+  width: 100%;
+  background: radial-gradient(circle at center, #181c25 0%, #131722 100%);
   border: 1px solid var(--border);
   border-radius: 8px;
+  overflow: hidden; /* Important pour que le canvas ne déborde pas */
 }
 
-#chart-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-#chart-data {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 95%;
-  height: 100%;
-}
-
+/* Les Canvas (Empilés) */
+#chart-grid,
+#chart-data,
+#chart-user,
 #chart-draw {
   position: absolute;
   top: 0;
   right: 0;
-  width: 95%;
+  width: 100%;
   height: 100%;
-  z-index: 9999;
+}
+
+/* Z-Index Gestion */
+#chart-grid {
+  z-index: 10;
+}
+#chart-data {
+  z-index: 20;
+  width: 95%; /* Marge à droite pour le prix */
+}
+#chart-draw {
+  z-index: 40;
+  width: 95%;
   pointer-events: auto;
-  cursor: crosshair; /* Curseur en croix pour la précision */
+  cursor: crosshair;
+}
+#chart-user {
+  z-index: 50;
+  width: 95%;
+  pointer-events: none;
+}
+
+/* --- ETAGE 3 : FOOTER (Temps) --- */
+.chart-controls-bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+/* Barre de temps */
+.time-filters {
+  display: flex;
+  gap: 5px;
+  background: var(--bg-card);
+  padding: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.time-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.time-btn:hover {
+  color: var(--text-main);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+.time-btn.active,
+.time-btn[aria-pressed="true"] {
+  color: #fff;
+  background-color: var(--accent);
 }
 
 /* =========================================
-   5. UTILITAIRES
+   4. UTILITAIRES
    ========================================= */
 .disabled {
   display: none !important;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
 }
 
 @keyframes fadeIn {
@@ -261,63 +399,4 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-/* Accessibilité (Screen Readers) */
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
-
-/* =========================================
-   6. FIX ALIGNEMENT TABLEAU
-   ========================================= */
-
-/* On force des largeurs spécifiques pour chaque colonne */
-/* Colonne 1 : Actif (Nom + Image) - On lui donne de la place */
-.crypto-table th:nth-child(1),
-.crypto-table td:nth-child(1) {
-  width: 25%;
-  text-align: left;
-}
-
-/* Colonne 2 : Prix */
-.crypto-table th:nth-child(2),
-.crypto-table td:nth-child(2) {
-  width: 15%;
-  text-align: right;
-}
-
-/* Colonne 3 : Variation 7j */
-.crypto-table th:nth-child(3),
-.crypto-table td:nth-child(3) {
-  width: 10%;
-  text-align: right;
-}
-
-/* Colonne 4 : 24h High/Low */
-.crypto-table th:nth-child(4),
-.crypto-table td:nth-child(4) {
-  width: 20%;
-  text-align: right;
-}
-
-/* Colonne 5 : ATH % */
-.crypto-table th:nth-child(5),
-.crypto-table td:nth-child(5) {
-  width: 15%;
-  text-align: right;
-}
-
-/* Colonne 6 : Market Cap */
-.crypto-table th:nth-child(6),
-.crypto-table td:nth-child(6) {
-  width: 15%;
-  text-align: right;
 }

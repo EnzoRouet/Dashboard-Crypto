@@ -1,5 +1,4 @@
 import { getCoins } from "./src/API.js";
-import { getMarketChart } from "./src/API.js";
 import { render } from "./src/render.js";
 import { loadDetails } from "./src/details.js";
 const firstBloc = document.querySelector(".crypto-dashboard");
@@ -10,8 +9,8 @@ async function init() {
   try {
     const data = await getCoins();
     render(data);
+
     const lignes = document.querySelectorAll(".crypto");
-    let id;
 
     lignes.forEach((ligne) => {
       ligne.addEventListener("click", () => {
@@ -19,9 +18,15 @@ async function init() {
         firstBloc.classList.add("disabled");
         secondBloc.classList.remove("disabled");
 
-        id = ligne.dataset.id;
-        loadDetails(id);
-        getMarketChart(id, 1);
+        const id = ligne.dataset.id;
+
+        const selectedCoin = data.find((coin) => coin.id === id);
+
+        loadDetails({
+          id: selectedCoin.id,
+          name: selectedCoin.name,
+          image: selectedCoin.image,
+        });
       });
     });
   } catch (err) {

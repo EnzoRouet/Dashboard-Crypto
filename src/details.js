@@ -3,12 +3,19 @@ import { drawChart, drawYGrid, drawXGrid, drawCursor } from "./draw.js";
 import { formatPrice } from "./render.js";
 let currentCryptoId;
 
-export async function loadDetails(id) {
+export async function loadDetails(crypto) {
   const grid = document.getElementById("chart-grid");
   const data = document.getElementById("chart-data");
   const draw = document.getElementById("chart-draw");
+  const btns = document.querySelectorAll(".time-btn");
 
-  currentCryptoId = id;
+  document.getElementById("detail-name").innerText = crypto.name;
+
+  const logo = document.getElementById("detail-logo");
+  logo.src = crypto.image;
+  logo.alt = crypto.name;
+
+  currentCryptoId = crypto.id;
 
   grid.width = grid.clientWidth;
   grid.height = grid.clientHeight;
@@ -27,8 +34,38 @@ export async function loadDetails(id) {
   ctxData.clearRect(0, 0, data.width, data.height);
   ctxDraw.clearRect(0, 0, draw.width, draw.height);
 
+  btns.forEach((oldBtn) => {
+    const btn = oldBtn.cloneNode(true);
+
+    btn.classList.remove("active");
+    btn.setAttribute("aria-pressed", "false");
+
+    oldBtn.parentNode.replaceChild(btn, oldBtn);
+
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      document.querySelectorAll(".time-btn").forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-pressed", "false");
+      });
+
+      btn.classList.add("active");
+
+      const day = btn.dataset.days;
+
+      updateGraph(day);
+    });
+  });
+
+  const defaultBtn = document.querySelector('.time-btn[data-days="1"]');
+
+  if (defaultBtn) {
+    defaultBtn.classList.add("active");
+    defaultBtn.setAttribute("aria-pressed", "true");
+  }
+
   await updateGraph(1);
-  ('"');
 }
 
 export async function updateGraph(days) {
@@ -37,9 +74,15 @@ export async function updateGraph(days) {
   const dataCanvas = document.getElementById("chart-data");
   const gridCanvas = document.getElementById("chart-grid");
   const drawCanvas = document.getElementById("chart-draw");
+  const userCanvas = document.getElementById("chart-user");
   const ctxData = dataCanvas.getContext("2d");
   const ctxGrid = gridCanvas.getContext("2d");
   const ctxDraw = drawCanvas.getContext("2d");
+  const ctxUser = userCanvas.getContext("2d");
+
+  ctxData.clearRect(0, 0, dataCanvas.width, dataCanvas.height);
+  ctxGrid.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+  ctxDraw.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
 
   drawChart(ctxData, prices, dataCanvas.width, dataCanvas.height);
   drawYGrid(ctxGrid, prices, gridCanvas.height);
