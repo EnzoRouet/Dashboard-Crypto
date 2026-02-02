@@ -98,6 +98,9 @@ export function drawXGrid(ctx, prices, width, height, days) {
 
   const y = height - 10;
 
+  const graphWidth = width * 0.95;
+  const offsetLeft = width * 0.05;
+
   if (days === 1) {
     let lastDrawnHour = -1;
 
@@ -107,7 +110,8 @@ export function drawXGrid(ctx, prices, width, height, days) {
       const hour = date.getHours();
 
       if (hour % 2 === 0 && hour !== lastDrawnHour) {
-        const x = (i / (prices.length - 1)) * width;
+        const ratio = i / (prices.length - 1);
+        const x = offsetLeft + ratio * graphWidth;
         if (x > 100 && x < width - 20) {
           ctx.fillText(`${hour}:00`, x, y);
           lastDrawnHour = hour;
@@ -125,12 +129,8 @@ export function drawXGrid(ctx, prices, width, height, days) {
         day: "numeric",
         month: "numeric",
       });
-      const x = (index / (prices.length - 1)) * width;
-
-      // if (j === 0 && x < 50) {
-      //   continue;
-      // }
-
+      const ratio = index / (prices.length - 1);
+      const x = offsetLeft + ratio * graphWidth;
       if (j === 0) ctx.textAlign = "left";
       else if (j === numLabels - 1) ctx.textAlign = "right";
       else ctx.textAlign = "center";
