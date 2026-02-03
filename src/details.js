@@ -1,12 +1,15 @@
 import { getMarketChart } from "./API.js";
 import { drawChart, drawYGrid, drawXGrid, drawCursor } from "./draw.js";
 import { formatPrice } from "./render.js";
+import { enableDrawing, resetTools } from "./tools.js";
 let currentCryptoId;
 
 export async function loadDetails(crypto) {
+  resetTools();
   const grid = document.getElementById("chart-grid");
   const data = document.getElementById("chart-data");
   const draw = document.getElementById("chart-draw");
+  const user = document.getElementById("chart-user");
   const btns = document.querySelectorAll(".time-btn");
 
   document.getElementById("detail-name").innerText = crypto.name;
@@ -26,13 +29,18 @@ export async function loadDetails(crypto) {
   draw.width = draw.clientWidth;
   draw.height = draw.clientHeight;
 
+  user.width = user.clientWidth;
+  user.height = user.clientHeight;
+
   const ctxGrid = grid.getContext("2d");
   const ctxData = data.getContext("2d");
   const ctxDraw = draw.getContext("2d");
+  const ctxUser = user.getContext("2d");
 
   ctxGrid.clearRect(0, 0, grid.width, grid.height);
   ctxData.clearRect(0, 0, data.width, data.height);
   ctxDraw.clearRect(0, 0, draw.width, draw.height);
+  ctxUser.clearRect(0, 0, user.width, user.height);
 
   btns.forEach((oldBtn) => {
     const btn = oldBtn.cloneNode(true);
@@ -73,57 +81,59 @@ export async function updateGraph(days) {
 
   const dataCanvas = document.getElementById("chart-data");
   const gridCanvas = document.getElementById("chart-grid");
-  const drawCanvas = document.getElementById("chart-draw");
-  const userCanvas = document.getElementById("chart-user");
+
+  const oldDrawCanvas = document.getElementById("chart-draw");
+
   const ctxData = dataCanvas.getContext("2d");
   const ctxGrid = gridCanvas.getContext("2d");
-  const ctxDraw = drawCanvas.getContext("2d");
-  const ctxUser = userCanvas.getContext("2d");
 
   ctxData.clearRect(0, 0, dataCanvas.width, dataCanvas.height);
   ctxGrid.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
-  ctxDraw.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
 
+  // Dessin des parties statiques
   drawChart(ctxData, prices, dataCanvas.width, dataCanvas.height);
   drawYGrid(ctxGrid, prices, gridCanvas.height);
   drawXGrid(ctxGrid, prices, gridCanvas.width, gridCanvas.height, days);
+
+  const newDrawCanvas = oldDrawCanvas.cloneNode(true);
+
+  newDrawCanvas.width = oldDrawCanvas.clientWidth;
+  newDrawCanvas.height = oldDrawCanvas.clientHeight;
+
+  oldDrawCanvas.parentNode.replaceChild(newDrawCanvas, oldDrawCanvas);
+
+  // 4. On récupère le contexte du NOUVEAU canvas
+  const ctxDraw = newDrawCanvas.getContext("2d");
 
   let minPrice = prices[0][1];
   let maxPrice = prices[0][1];
 
   for (let i = 1; i < prices.length; i++) {
-    if (prices[i][1] > maxPrice) {
-      maxPrice = prices[i][1];
-    }
-    if (prices[i][1] < minPrice) {
-      minPrice = prices[i][1];
-    }
+    if (prices[i][1] > maxPrice) maxPrice = prices[i][1];
+    if (prices[i][1] < minPrice) minPrice = prices[i][1];
   }
 
   const padding = (maxPrice - minPrice) * 0.1;
   maxPrice += padding;
   minPrice -= padding;
 
-  drawCanvas.addEventListener("mousemove", (e) => {
-    ctxDraw.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+  newDrawCanvas.addEventListener("mousemove", (e) => {
+    ctxDraw.clearRect(0, 0, newDrawCanvas.width, newDrawCanvas.height);
 
-    const rect = drawCanvas.getBoundingClientRect();
+    const rect = newDrawCanvas.getBoundingClientRect();
     const xMouse = e.clientX - rect.left;
 
-    let pos = Math.round((xMouse / drawCanvas.width) * (prices.length - 1));
+    let pos = Math.round((xMouse / newDrawCanvas.width) * (prices.length - 1));
 
-    if (pos < 0) {
-      pos = 0;
-    } else if (pos > prices.length) {
-      pos = prices.length - 1;
-    }
+    if (pos < 0) pos = 0;
+    else if (pos > prices.length) pos = prices.length - 1;
 
     let timestamp = prices[pos][0];
     let price = prices[pos][1];
 
-    let x = (pos / (prices.length - 1)) * drawCanvas.width;
+    let x = (pos / (prices.length - 1)) * newDrawCanvas.width;
     let ratio = (price - minPrice) / (maxPrice - minPrice);
-    let y = drawCanvas.height - drawCanvas.height * ratio;
+    let y = newDrawCanvas.height - newDrawCanvas.height * ratio;
 
     let priceStr = formatPrice(price);
     let dateStr = new Date(timestamp).toLocaleDateString("fr-FR", {
@@ -137,14 +147,16 @@ export async function updateGraph(days) {
       ctxDraw,
       x,
       y,
-      drawCanvas.width,
-      drawCanvas.height,
+      newDrawCanvas.width,
+      newDrawCanvas.height,
       priceStr,
       dateStr,
     );
   });
 
-  drawCanvas.addEventListener("mouseleave", () => {
-    ctxDraw.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+  newDrawCanvas.addEventListener("mouseleave", () => {
+    ctxDraw.clearRect(0, 0, newDrawCanvas.width, newDrawCanvas.height);
   });
+
+  enableDrawing(newDrawCanvas);
 }

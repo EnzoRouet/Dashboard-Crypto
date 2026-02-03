@@ -1,6 +1,7 @@
 import { getCoins } from "./src/API.js";
 import { render } from "./src/render.js";
 import { loadDetails } from "./src/details.js";
+import { initTools, getCurrentTool } from "./src/tools.js";
 const firstBloc = document.querySelector(".crypto-dashboard");
 const secondBloc = document.querySelector(".crypto-details");
 const btn_exit = document.getElementById("exit");
@@ -35,6 +36,7 @@ async function init() {
 }
 
 init();
+initTools();
 
 setInterval(() => {
   if (document.visibilityState === "visible") {

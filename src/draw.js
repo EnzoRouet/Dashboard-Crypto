@@ -112,7 +112,7 @@ export function drawXGrid(ctx, prices, width, height, days) {
       if (hour % 2 === 0 && hour !== lastDrawnHour) {
         const ratio = i / (prices.length - 1);
         const x = offsetLeft + ratio * graphWidth;
-        if (x > 100 && x < width - 20) {
+        if (x > 110 && x < width - 20) {
           ctx.fillText(`${hour}:00`, x, y);
           lastDrawnHour = hour;
         }
