@@ -4,7 +4,7 @@ const BASE_URL = "https://api.coingecko.com/api/v3";
 
 export async function getCoins() {
   try {
-    const EndPoint = `${BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=7d&x_cg_demo_api_key=${API_KEY}`;
+    const EndPoint = `${BASE_URL}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=7d&x_cg_demo_api_key=${API_KEY}`;
 
     console.log("Appel API vers :", EndPoint);
 

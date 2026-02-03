@@ -147,6 +147,9 @@ export function drawCursor(ctx, x, y, width, height, price, dateStr) {
   ctx.beginPath();
   ctx.setLineDash([5, 5]);
 
+  ctx.strokeStyle = "#d1d4dc";
+  ctx.lineWidth = 1;
+
   ctx.moveTo(x, 0);
   ctx.lineTo(x, height);
 
@@ -160,6 +163,7 @@ export function drawCursor(ctx, x, y, width, height, price, dateStr) {
   ctx.moveTo(x, y);
   ctx.arc(x, y, 5, 0, 2 * Math.PI);
   ctx.fillStyle = "rgb(255,255,255)";
+  ctx.strokeStyle = "#d1d4dc";
   ctx.fill();
   ctx.stroke();
 
@@ -179,9 +183,11 @@ export function drawCursor(ctx, x, y, width, height, price, dateStr) {
   ctx.fillStyle = "rgb(54, 54, 54)";
   ctx.fillRect(xBox, y_depart, 100, 40);
   ctx.fillStyle = "rgb(255,255,255)";
+  ctx.font = "12px sans-serif";
   ctx.textBaseline = "middle";
   ctx.textAlign = "center";
   ctx.fillText(`${price}`, xText, y - 10);
   ctx.fillStyle = "rgb(140, 140, 140)";
+  ctx.font = "12px sans-serif";
   ctx.fillText(`${dateStr}`, xText, y + 10);
 }

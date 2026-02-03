@@ -1,7 +1,7 @@
 import { getMarketChart } from "./API.js";
 import { drawChart, drawYGrid, drawXGrid, drawCursor } from "./draw.js";
 import { formatPrice } from "./render.js";
-import { enableDrawing, resetTools } from "./tools.js";
+import { enableDrawing, resetTools, getGraphScale } from "./tools.js";
 let currentCryptoId;
 
 export async function loadDetails(crypto) {
@@ -81,16 +81,18 @@ export async function updateGraph(days) {
 
   const dataCanvas = document.getElementById("chart-data");
   const gridCanvas = document.getElementById("chart-grid");
+  const userCanvas = document.getElementById("chart-user");
 
   const oldDrawCanvas = document.getElementById("chart-draw");
 
   const ctxData = dataCanvas.getContext("2d");
   const ctxGrid = gridCanvas.getContext("2d");
+  const ctxUser = userCanvas.getContext("2d");
 
   ctxData.clearRect(0, 0, dataCanvas.width, dataCanvas.height);
   ctxGrid.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+  ctxUser.clearRect(0, 0, userCanvas.width, userCanvas.height);
 
-  // Dessin des parties statiques
   drawChart(ctxData, prices, dataCanvas.width, dataCanvas.height);
   drawYGrid(ctxGrid, prices, gridCanvas.height);
   drawXGrid(ctxGrid, prices, gridCanvas.width, gridCanvas.height, days);
@@ -102,7 +104,6 @@ export async function updateGraph(days) {
 
   oldDrawCanvas.parentNode.replaceChild(newDrawCanvas, oldDrawCanvas);
 
-  // 4. On récupère le contexte du NOUVEAU canvas
   const ctxDraw = newDrawCanvas.getContext("2d");
 
   let minPrice = prices[0][1];
@@ -116,6 +117,7 @@ export async function updateGraph(days) {
   const padding = (maxPrice - minPrice) * 0.1;
   maxPrice += padding;
   minPrice -= padding;
+  getGraphScale(minPrice, maxPrice, dataCanvas.height);
 
   newDrawCanvas.addEventListener("mousemove", (e) => {
     ctxDraw.clearRect(0, 0, newDrawCanvas.width, newDrawCanvas.height);

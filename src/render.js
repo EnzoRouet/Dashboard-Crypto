@@ -37,10 +37,7 @@ export function render(datas) {
   const htmlRows = datas.map((crypto) => {
     const css =
       crypto.price_change_percentage_7d_in_currency > 0 ? "green" : "red";
-    const icon =
-      crypto.price_change_percentage_7d_in_currency > 0
-        ? `<i class="fa-solid fa-arrow-trend-up"></i>`
-        : `<i class="fa-solid fa-arrow-trend-down"></i>`;
+    const sign = crypto.price_change_percentage_7d_in_currency > 0 ? "+" : "";
 
     return `
       <tr class="crypto" data-id="${crypto.id}">
@@ -48,9 +45,9 @@ export function render(datas) {
               crypto.image
             }"/> <span class="crypto-name">${crypto.name}</span></th>
             <td>${formatPrice(crypto.current_price)}</td>
-            <td class="${css}">${icon} <span>${crypto.price_change_percentage_7d_in_currency.toFixed(
-      2
-    )}%</span></td>
+            <td class="${css}"><span>${sign}${crypto.price_change_percentage_7d_in_currency.toFixed(
+              2,
+            )}%</span></td>
             <td>
                 <div>${formatPrice(crypto.high_24h)}</div>
                 <div class="low">${formatPrice(crypto.low_24h)}</div>
