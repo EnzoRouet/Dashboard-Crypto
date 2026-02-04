@@ -79,7 +79,7 @@ Le projet utilisant les modules ES6 (`import/export`), il nécessite un environn
 1. **Cloner le dépôt :**
 
 ```bash
-git clone [https://github.com/EnzoRouet/Dashboard-Crypto](https://github.com/EnzoRouet/Dashboard-Crypto)
+git clone [https://github.com/EnzoRouet/Dashboard-Crypto]
 
 ```
 
