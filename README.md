@@ -1,16 +1,3 @@
-C'est parti. Voici ton fichier `README.md` **final**, avec le texte exact que tu as validé et les balises images placées aux endroits stratégiques pour illustrer tes propos.
-
-### ⚠️ Important avant de copier :
-
-Pour que les images s'affichent sur GitHub :
-
-1. Crée un dossier nommé **`assets`** à la racine de ton projet.
-2. Mets tes 3 images dedans.
-3. **Renomme** la capture d'écran avec le nom long (`Capture d’écran...58.jpg`) en **`Ruler_Demo.jpg`** (pour correspondre au code ci-dessous).
-
-Voici le code à copier dans ton fichier `README.md` :
-
-````markdown
 # 📈 Crypto Dashboard - Custom Charting Engine
 
 **Projet de fin d'étude** focalisé sur le développement JavaScript natif et la manipulation graphique bas niveau.
@@ -62,7 +49,7 @@ Contrairement à une approche classique utilisant des librairies clés en main (
 
 Le code est structuré pour séparer les responsabilités :
 
-```text
+```
 /src
 ├── API.js        # Gestion des appels réseaux (CoinGecko)
 ├── details.js    # Contrôleur de la vue détaillée (Logique métier)
@@ -70,6 +57,7 @@ Le code est structuré pour séparer les responsabilités :
 ├── render.js     # Manipulation du DOM (Tableau, Listes)
 └── tools.js      # Moteur d'interaction (Dessin, Souris, Calculs mathématiques)
 ```
+
 ````
 
 ## 🧠 Challenges Techniques Résolus
@@ -118,3 +106,4 @@ export const API_KEY = "VOTRE_CLE_ICI";
 ---
 
 _Projet réalisé par Enzo Rouet._
+````
