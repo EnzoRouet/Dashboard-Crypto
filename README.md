@@ -1,7 +1,22 @@
+C'est parti. Voici ton fichier `README.md` **final**, avec le texte exact que tu as validé et les balises images placées aux endroits stratégiques pour illustrer tes propos.
+
+### ⚠️ Important avant de copier :
+
+Pour que les images s'affichent sur GitHub :
+
+1. Crée un dossier nommé **`assets`** à la racine de ton projet.
+2. Mets tes 3 images dedans.
+3. **Renomme** la capture d'écran avec le nom long (`Capture d’écran...58.jpg`) en **`Ruler_Demo.jpg`** (pour correspondre au code ci-dessous).
+
+Voici le code à copier dans ton fichier `README.md` :
+
+````markdown
 # 📈 Crypto Dashboard - Custom Charting Engine
 
 **Projet de fin d'étude** focalisé sur le développement JavaScript natif et la manipulation graphique bas niveau.
 Une Single Page Application (SPA) d'analyse financière construite sans framework, avec un moteur de rendu graphique développé "from scratch".
+
+![Vue globale du Dashboard](./img/Index.png)
 
 ## 🎯 Contexte & Objectifs Pédagogiques
 
@@ -20,7 +35,7 @@ Contrairement à une approche classique utilisant des librairies clés en main (
 
 - **Frontend :** JavaScript (ES Modules), HTML5, CSS3.
 - **Moteur Graphique :** HTML5 Canvas API (100% Custom).
-- **Données :** [CoinGecko API](https://www.google.com/search?q=https://www.coingecko.com/en/api) (Fetch & Async/Await).
+- **Données :** [CoinGecko API](https://www.coingecko.com/en/api) (Fetch & Async/Await).
 - **Architecture :** Modulaire (Séparation Logique / Rendu / Données).
 
 ## ✨ Fonctionnalités Développées
@@ -30,6 +45,8 @@ Contrairement à une approche classique utilisant des librairies clés en main (
 - Rendu de courbes de prix dynamiques basé sur l'historique API.
 - Génération automatique des grilles X (Temps) et Y (Prix) selon l'échelle.
 - Adaptation dynamique de l'échelle (Timeframes : 1J, 7J, 1M, 3M, 1A).
+
+![Rendu du moteur graphique](./img/Courbe.png)
 
 ### 2. Outils d'Analyse Technique (Interactive Tools)
 
@@ -45,15 +62,15 @@ Contrairement à une approche classique utilisant des librairies clés en main (
 
 Le code est structuré pour séparer les responsabilités :
 
-```
+```text
 /src
 ├── API.js        # Gestion des appels réseaux (CoinGecko)
 ├── details.js    # Contrôleur de la vue détaillée (Logique métier)
 ├── draw.js       # Moteur de rendu statique (Courbes, Grilles)
 ├── render.js     # Manipulation du DOM (Tableau, Listes)
 └── tools.js      # Moteur d'interaction (Dessin, Souris, Calculs mathématiques)
-
 ```
+````
 
 ## 🧠 Challenges Techniques Résolus
 
@@ -76,7 +93,7 @@ Le projet utilisant les modules ES6 (`import/export`), il nécessite un environn
 1. **Cloner le dépôt :**
 
 ```bash
-git clone https://github.com/ton-pseudo/crypto_dashboard.git
+git clone [https://github.com/EnzoRouet/Dashboard-Crypto](https://github.com/EnzoRouet/Dashboard-Crypto)
 
 ```
 
@@ -87,11 +104,10 @@ git clone https://github.com/ton-pseudo/crypto_dashboard.git
 export const API_KEY = "VOTRE_CLE_ICI";
 ```
 
-⚡ Option rapide (Clé de Démo) : Si vous ne souhaitez pas créer de compte CoinGecko pour tester le projet, vous pouvez utiliser cette clé générée spécifiquement pour la démonstration :
-
-export const API_KEY = "CG-NnmfhqMBMUBvf8VhhicqpSsw";
-
-⚠️ Note : Cette clé étant publique et partagée, elle est susceptible d'atteindre les limites de requêtes (Rate Limit) si plusieurs utilisateurs testent le projet simultanément.
+> **⚡ Option rapide (Clé de Démo) :**
+> Si vous ne souhaitez pas créer de compte CoinGecko pour tester le projet, vous pouvez utiliser cette clé générée spécifiquement pour la démonstration :
+> `export const API_KEY = "CG-NnmfhqMBMUBvf8VhhicqpSsw";`
+> _⚠️ Note : Cette clé étant publique et partagée, elle est susceptible d'atteindre les limites de requêtes (Rate Limit) si plusieurs utilisateurs testent le projet simultanément._
 
 3. **Lancer le serveur local :**
 
