@@ -90,10 +90,11 @@ git clone [https://github.com/EnzoRouet/Dashboard-Crypto](https://github.com/Enz
 export const API_KEY = "VOTRE_CLE_ICI";
 ```
 
-> **⚡ Option rapide (Clé de Démo) :**
-> Si vous ne souhaitez pas créer de compte CoinGecko pour tester le projet, vous pouvez utiliser cette clé générée spécifiquement pour la démonstration :
-> `export const API_KEY = "CG-NnmfhqMBMUBvf8VhhicqpSsw";`
-> _⚠️ Note : Cette clé étant publique et partagée, elle est susceptible d'atteindre les limites de requêtes (Rate Limit) si plusieurs utilisateurs testent le projet simultanément._
+**⚡ Option rapide (Clé de Démo) :**
+Si vous ne souhaitez pas créer de compte CoinGecko pour tester le projet, vous pouvez utiliser cette clé générée spécifiquement pour la démonstration :
+`export const API_KEY = "CG-NnmfhqMBMUBvf8VhhicqpSsw";`
+
+_⚠️ Note : Cette clé étant publique et partagée, elle est susceptible d'atteindre les limites de requêtes (Rate Limit) si plusieurs utilisateurs testent le projet simultanément._
 
 3. **Lancer le serveur local :**
 
