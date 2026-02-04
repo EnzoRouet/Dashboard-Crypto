@@ -58,8 +58,6 @@ Le code est structuré pour séparer les responsabilités :
 └── tools.js      # Moteur d'interaction (Dessin, Souris, Calculs mathématiques)
 ```
 
-````
-
 ## 🧠 Challenges Techniques Résolus
 
 ### La conversion Données ↔ Pixels
@@ -106,4 +104,3 @@ export const API_KEY = "VOTRE_CLE_ICI";
 ---
 
 _Projet réalisé par Enzo Rouet._
-````
